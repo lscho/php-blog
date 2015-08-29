@@ -1,0 +1,64 @@
+<div class="am-u-sm-4">
+    <div class="am-input-group">
+        <form action="__ROOT__/search" method="POST" accept-charset="utf-8"  class="pjax_form">
+            <span class="am-input-group-btn">
+                <input type="text" class="am-form-field" name="s" placeholder="search">
+                <button class="am-btn am-btn-default" type="submit"><span class="am-icon-search"></span></button>
+            </span>
+        </form>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted"/>
+    </div>
+    <div>
+        <h3>最新心情</h3>
+        <ul class="am-list">
+            <volist name="moodlist" id="vo">
+                <li  class="sidebar">
+                    <p class="am-text-sm am-text-truncate"><a href="__ROOT__/mood"><i class="am-icon-star-o am-icon-fw"></i>{$vo.mood}</a>   </p>
+                </li>
+
+            </volist>
+
+        </ul>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted"/>
+    </div>
+
+
+    <div>
+        <h3>分类目录</h3>
+        <ul class="am-list">
+            <volist name="catelist" id="vo">
+                <li  class="sidebar">
+                    <a href="__ROOT__/cate/{$vo.id}"><i class="am-icon-folder-o am-icon-fw"></i>{$vo.name}</a>
+                    
+                </li>
+
+            </volist>
+
+        </ul>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted"/>
+    </div>
+
+
+    <div>
+        <h3>标签列表</h3>
+        <ul class="am-cf">
+            <volist name="taglist" id="vo">
+
+                <a href="__ROOT__/tag/{$vo.id}" class="am-badge am-radius am-margin-right-xs">{$vo.name}</a>
+
+            </volist>
+        </ul>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted"/>
+    </div>
+
+    <div>
+        <h3>最新留言</h3>
+        <ul class="am-list">
+            <volist name="commentlist" id="vo">
+                <li class="sidebar"><p class="am-text-sm"><i class="am-icon-comment-o"></i><a href="{$vo.address}" class="am-blog-auth"  target="_black">{$vo.name}</a> on <a href="__ROOT__/page/{$vo.pid}.html">{$vo.title}</a></p></li>
+            </volist>
+        </ul>
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted"/>
+    </div>
+
+</div>

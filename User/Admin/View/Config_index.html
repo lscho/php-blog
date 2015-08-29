@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+    <body>
+    <include file="./User/Admin/View/menu.html" />
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">配置</strong> / <small>Config</small></div>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-md-6">
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-1'}">基本配置<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div class="am-panel-bd am-collapse" id="collapse-panel-1">
+                            <form class="am-form" method="post"  action="__ROOT__/index.php/Admin/Config/doSet">
+                                <input type="hidden" name="tid" value="1">
+                                <ul class="am-list am-list-static">
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">网站标题</label>*必填
+                                        <input type="text" class="" name="web_title" value="{$con['web_title']}" placeholder="显示在浏览器标题">
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">网站副标题</label>*非必填
+                                        <input type="text" class="" name="web_f_title" value="{$con['web_f_title']}"  placeholder="网站副标题">
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">网站关键字</label>*非必填
+                                        <input type="text" class="" name="web_key" value="{$con['web_key']}"  placeholder="已英文逗号隔开">
+                                    </div> 
+                                    <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-2'}">友情链接<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div id="collapse-panel-2" class="am-panel-bd am-collapse">
+                            <form class="am-form" method="post"  action="__ROOT__/index.php/Admin/Config/doSet">
+                                <input type="hidden" name="tid" value="3">
+                                <ul class="am-list am-list-static">
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">友情链接</label>*可以自定义样式
+                                        <textarea class="" rows="5" id="doc-ta-1" name="web_f_url">{$con['web_f_url']}</textarea>
+                                        <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+                                    </div>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-md-6">
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-4'}">内容配置<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div id="collapse-panel-4" class="am-panel-bd am-collapse">
+                            <form class="am-form" method="post"  action="__ROOT__/index.php/Admin/Config/doSet">
+                                <input type="hidden" name="tid" value="2">
+                                <ul class="am-list am-list-static">
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">每页显示文章数量</label>*必填
+                                        <input type="text" class="" name="web_cont_size" value="{$con['web_cont_size']}" placeholder="每页显示文章数量">
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">心情每页显示数量</label>*必填
+                                        <input type="text" class="" name="web_mood_size" value="{$con['web_mood_size']}"  placeholder="心情每页显示数量">
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">是否显示评论</label>*必选
+                                        <label class="am-radio am-secondary">
+                                            <input type="radio" name="web_iscomment" value="1" data-am-ucheck <if condition="($con['web_iscomment'] eq 1)">checked</if>> 开启
+                                        </label>
+                                        <label class="am-radio am-secondary">
+                                            <input type="radio" name="web_iscomment" value="0" data-am-ucheck <if condition="($con['web_iscomment'] eq 0)">checked</if>> 关闭
+                                        </label>
+                                    </div>                                    
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">评论显示数量</label>*非必填
+                                        <input type="text" class="" name="web_comment_size" value="{$con['web_comment_size']}"  placeholder="评论显示数量">
+                                    </div> 
+                                    <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-3'}">底部信息<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div class="am-panel-bd am-collapse  am-cf" id="collapse-panel-3">
+                            <form class="am-form" method="post"  action="__ROOT__/index.php/Admin/Config/doSet">
+                                <input type="hidden" name="tid" value="4">
+                                <ul class="am-list am-list-static">
+                                    <div class="am-form-group">
+                                        <label for="doc-ipt-email-1">底部信息</label>*可以放统计代码等js代码
+                                        <textarea class="" rows="5" id="doc-ta-1" name="web_footer">{$con['web_footer']}</textarea>
+                                        <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+                                    </div>
+                                </ul>
+                            </form>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+
+    </div>
+    <script>
+        $(function () {
+            $('form').ajaxForm(function (data) {
+                eval('data=' + data);
+                eyAlert(data.msg);
+            });
+            return false;
+        })
+    </script>
+    <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    <include file="./User/Admin/View/footer.html" />
+</body>
+</html>

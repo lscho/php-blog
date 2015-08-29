@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+    <body>
+    <include file="./User/Admin/View/menu.html" />
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <link rel="stylesheet" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+        <script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor.js"></script>
+        <script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+        <script>
+            KindEditor.ready(function (K) {
+                var editor = K.editor({
+                });
+                K('#image1').click(function () {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            imageUrl: K('#url1').val(),
+                            clickFn: function (url, title, width, height, border, align) {
+                                K('#url1').val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+                K('#image2').click(function () {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            showLocal: false,
+                            imageUrl: K('#url2').val(),
+                            clickFn: function (url, title, width, height, border, align) {
+                                K('#url2').val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+                K('#image3').click(function () {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            showRemote: false,
+                            imageUrl: K('#url3').val(),
+                            clickFn: function (url, title, width, height, border, align) {
+                                K('#url3').val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+        <!-- content start -->
+        <div class="admin-content">
+
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">相册</strong> / <small>Gallery</small></div>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default"  data-am-modal="{target: '#my-popup'}"><span class="am-icon-plus"></span> 创建相册</button>
+                        </div>
+                    </div>
+                </div>   
+                <ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin gallery-list">
+                    <volist name="list" id="vo">
+                        <li class="element2">
+                            <a href="__ROOT__/index.php/Admin/Photo/lists/id/{$vo.id}" class="am-thumbnail-caption">
+                                <img class="am-img-thumbnail am-img-bdrs" src="{$vo.src}" alt="{$vo.title}" style="width: 150px;height: 150px;"/>
+                                <div class="gallery-title">{$vo.title}</div>
+                                <div class="gallery-desc">{$vo.time|date="Y-m-d H:i:s",###}</div>
+                            </a>
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button type="button" class="am-btn am-btn-default"><span class="am-icon-pencil"></span></button>
+                                <button type="button" class="am-btn am-btn-default" onclick="doGet('/index.php/Admin/Photo/del/id/{$vo.id}')"><span class="am-icon-times"></span></button>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+
+                <div class="am-margin am-cf">
+                    <hr/>
+                    <p class="am-fl">共 {$count} 条记录</p>
+                    <ol class="am-pagination am-fr">
+                        {$showPage}
+                    </ol>
+                </div>
+                <p>注：暂时无法编辑相册</p>
+            </div>
+            <!-- content end -->
+
+        </div>
+        <!--创建相册-->
+        <div class="am-popup am-text-success" id="my-popup">
+            <div class="am-popup-inner">
+                <div class="am-popup-hd">
+                    <h4 class="am-popup-title">创建相册</h4>
+                    <span data-am-modal-close
+                          class="am-close">&times;</span>
+                </div>
+                <div class="am-popup-bd">
+                    <form id="photo"  method="post" class="am-form" action="__ROOT__/Admin/Photo/add">
+                        <fieldset>
+                            <legend>填写信息</legend>
+                            <div class="am-form-group">
+                                <label for="doc-ipt-email-1">相册名</label>
+                                <input type="text" class="" name="title" id="doc-ipt-email-1" placeholder="输入相册名">
+                            </div>
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                            <div class="am-form-group">
+                                <p class="am-text-default">*上传图片将设置为本相册封面，留空则系统调用默认图片</p>
+                                <input type="text" name="src" id="url1" value=""  placeholder="设置相册封面图片"/>
+                                <button type="button" class="am-badge am-badge-default" id="image1"><i class="am-icon-cloud-upload"></i>点击上传</button>
+                            </div>
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                            <div class="am-form-group">
+                                <p class="am-text-default">*相册密码，留空则为无密码</p>
+                                <input type="text" name="pass" class="am-form-field" id="password">
+                            </div>   
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                            <div class="am-form-group">
+                                <label for="doc-ta-1">相册简介</label>
+                                <textarea class="" name="abstract" rows="3" id="doc-ta-1"></textarea>
+                            </div>
+                            <input type="submit" name="" value="保 存" class="am-btn am-btn-default am-fl">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('form').ajaxForm(function (data) {
+                    var $modal = $('#my-popup');
+                    $modal.modal('toggle');
+                    eval('data=' + data);
+                    eyAlert(data.msg);
+                });
+                return false;
+            })
+        </script>
+        <!--创建相册-->
+        <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+        <include file="./User/Admin/View/footer.html" />
+    </body>
+</html>

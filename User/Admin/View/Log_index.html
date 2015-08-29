@@ -1,0 +1,33 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+<body>
+    <include file="./User/Admin/View/menu.html" />
+<div class="am-cf admin-main">
+    <include file="./User/Admin/View/sidebar.html" />
+ <!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">错误日志</strong> / <small>Error Log</small></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g error-log">
+      <div class="am-u-sm-12 am-u-sm-centered">
+        <pre class="am-pre-scrollable">
+               <volist name="loglist" id="vo">
+                   {$vo}
+               </volist>
+        </pre>
+        <button type="button" class="am-btn am-btn-default" onclick="doGet('/index.php/Admin/Log/clear')">清除日志文件</button>
+      </div>
+    </div>
+  </div>
+  <!-- content end -->
+</div>
+
+<a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+<include file="./User/Admin/View/footer.html" />
+</body>
+</html>

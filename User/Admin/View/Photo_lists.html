@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+    <body>
+    <include file="./User/Admin/View/menu.html" />
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <link rel="stylesheet" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+        <script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor.js"></script>
+        <script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+        <script>
+            KindEditor.ready(function(K) {
+                var editor = K.editor({
+                });
+                K('#J_selectImage').click(function() {
+                    editor.loadPlugin('multiimage', function() {
+                        editor.plugin.multiImageDialog({
+                            clickFn: function(urlList) {
+                                var div = K('#srclist');
+                                K.each(urlList, function(i, data) {
+                                    div.append('<ul class="imglist"><img style="width:70px; height:70px;" class="am-thumbnail" src="' + data.url + '">');
+                                    div.append('<input name="imgname[]" type="text"  placeholder="图片名称">');
+                                    div.append('<input name="srcname[]" type="hidden" value="' + data.url + '"></ul>');
+                                });
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">相册</strong> / <small>lists                        <p class="am-text-success">共有{$count}张图片</p>
+                    </small></div>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default"   data-am-modal="{target: '#my-popup'}"><span class="am-icon-plus"></span> 新增</button>
+                        </div>
+                    </div>
+                </div>           
+
+                <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
+                    am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }">
+                    <volist name="list" id="vo">
+                        <li>
+                            <div class="am-gallery-item">
+                                <a href="{$vo.src}" class="">
+                                    <img src="{$vo.src}"   alt="{$vo.title}" style="width:280px; height:280px;"/>
+                                    <h3 class="am-gallery-title">{$vo.title}</h3>
+                                    <div class="am-gallery-desc">{$vo.time|date="Y-m-d H:i:s",###}</div>
+                                </a>
+                                <div class="am-btn-group am-btn-group-xs am-fr">
+                                    <button type="button" class="am-btn am-btn-default" onclick="doGet('/index.php/Admin/Photo/imgDel/id/{$vo.id}')"><span class="am-icon-times"></span></button>
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <!-- content end -->
+
+        </div>
+
+        <div class="am-popup am-text-success" id="my-popup">
+            <div class="am-popup-inner">
+                <div class="am-popup-hd">
+                    <h4 class="am-popup-title">上传图片</h4>
+                    <span data-am-modal-close
+                          class="am-close">&times;</span>
+                </div>
+                <div class="am-popup-bd">
+                    <form id="photo"  method="post" class="am-form" action="__ROOT__/Admin/Photo/upload">
+                        <input type="hidden" value="{$id}" name="pid">
+                        <fieldset>
+                            <input type="button" value="多图上传" id="J_selectImage" class="am-btn am-btn-default am-fl">
+                            <input type="submit" value="确定"  class="am-btn am-btn-default am-fl">
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                            <div id="srclist" class="am-thumbnail">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>       
+        <script>
+            $(function() {
+                $('form').ajaxForm(function(data) {
+                    var $modal = $('#my-popup');
+                    $modal.modal('toggle');
+                    eval('data=' + data);
+                    eyAlert(data.msg);
+                });
+                return false;
+            })
+        </script>
+        <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+        <include file="./User/Admin/View/footer.html" />
+    </body>
+</html>

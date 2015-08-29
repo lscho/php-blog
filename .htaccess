@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  #开启伪静态
+  RewriteEngine On
+  #文章
+  RewriteRule ^page/(\d+)\.html$ /Home/Index/page/id/$1
+  #分类
+  RewriteRule ^cate/(\d+)$ /Home/Index/index/cid/$1
+  #标签
+  RewriteRule ^tag/(\d+)$ /Home/Index/index/tid/$1
+  #搜索
+  RewriteRule ^search$ /Home/Index/index/
+  #分页
+  RewriteRule ^p/(\d+)$ /Home/Index/index/p/$1
+  #相册
+  RewriteRule ^photo$ /Home/Index/photo/
+  RewriteRule ^photo/(\d+)\.html$ /Home/Index/gallery/id/$1
+  #心情
+  RewriteRule ^mood$ /Home/Index/mood/
+  RewriteRule ^mood/(\d+)$ /Home/Index/mood/p/$1
+  #留言
+  RewriteRule ^comment$ /Home/comment/add/
+  RewriteRule ^contact$ /Home/Index/page/id/2
+  #关于
+  RewriteRule ^about$ /Home/Index/page/id/1
+  #获取所有请求转发至入口
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>

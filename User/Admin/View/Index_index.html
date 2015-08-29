@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+    <body>
+    <include file="./User/Admin/View/menu.html" />  
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <!-- content start -->
+        <div class="admin-content">
+
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>一些常用模块</small></div>
+            </div>
+
+            <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+                <li><a href="__ROOT__/Admin/Content/lists" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br/>文章<br/>{$count['content']}</a></li>
+                <li><a href="__ROOT__/Admin/Moods" class="am-text-warning"><span class="am-icon-btn am-icon-heart-o"></span><br/>心情<br/>{$count['mood']}</a></li>
+                <li><a href="__ROOT__/Admin/Photo" class="am-text-danger"><span class="am-icon-btn am-icon-image"></span><br/>图片<br/>{$count['image']}</a></li>
+                <li><a href="__ROOT__/Admin/Comment" class="am-text-secondary"><span class="am-icon-btn am-icon-comments-o"></span><br/>留言<br/>{$count['comment']}</a></li>
+            </ul>
+
+            <div class="am-g">
+                <div class="am-u-md-6">
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-1'}">最新心情<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div class="am-panel-bd am-collapse am-in" id="collapse-panel-1">
+                            <ul class="am-list admin-content-file">
+                                <volist name="newmood" id="vo">
+                                    <li>
+                                        <strong></span>{$vo.name}:{$vo.time|date="Y-m-d H:i:s",###}</strong>
+                                        <p>{$vo.mood}</p>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-2'}">版本信息<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div id="collapse-panel-2" class="am-panel-bd am-in">
+                            <p class="am-text-success am-serif">easyou 1.0</p>
+                            <p class="am-text-success am-serif">
+                                easyou是一个简单的博客，没有复杂的功能。从一开始它的定位就是简单和速度。
+                                放弃了许多华而不实的东西。从开始到结束，都没有忘记它是一个博客，而非CMS。
+                            
+                            </p>
+                            <p class="am-text-success am-serif">
+                                如果您想使用好它，可能需要一点点HTML知识。相信我。仅仅是一点点。
+                                多学一点，总是没有坏处的。
+                            </p>
+                            <p class="am-text-success am-serif">
+                                easyou是由<a target="_blank" href="http://document.thinkphp.cn/manual_3_2.html">thinkPHP</a>
+                                和<a target="_blank" href="http://amazeui.org/css/">amazeUI</a>的支持下完成的。如果您想要对它进行修改，请点击上面的链接来熟悉他们！
+                            </p>
+                            <p class="am-text-success monospace">2015-06-30 大萌</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-md-6">
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-4'}">最新留言<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+                            <ul class="am-comments-list admin-content-comment">
+                                <volist name="newcomment" id="vo">
+                                    <li class="am-comment">
+                                        <a href="{$vo.address}"><img src="__PUBLIC__/img/Visitor1.png" alt="" class="am-comment-avatar" width="48" height="48"></a>
+                                        <div class="am-comment-main">
+                                            <header class="am-comment-hd">
+                                                <div class="am-comment-meta"><a href="{$vo.address}" class="am-comment-author">{$vo.name}</a> 评论:{$vo.title} <time>{$vo.time|date="Y-m-d H:i:s",###}</time></div>
+                                            </header>
+                                            <div class="am-comment-bd"><p>{$vo.comment}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-3'}">自定义模块<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div class="am-panel-bd am-collapse am-in am-cf" id="collapse-panel-3">
+                            这里是预留的自定义模块功能
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+
+    </div>
+
+    <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    <include file="./User/Admin/View/footer.html" />
+</body>
+</html>

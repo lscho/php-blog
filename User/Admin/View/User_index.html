@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+    <body>
+    <include file="./User/Admin/View/menu.html" />
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <link rel="stylesheet" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+        <script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor.js"></script>
+        <script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>        
+        <script>
+            KindEditor.ready(function (K) {
+                var editor = K.editor({
+                    allowFileManager: true
+                });
+                K('#image1').click(function () {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            imageUrl: K('#url1').val(),
+                            clickFn: function (url, title, width, height, border, align) {
+                                K('#url1').val(url);
+                                $("#userimg").attr("src", url);
+                                $("#ts").text("已上传，确定请按保存按钮！")
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>    
+
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">个人资料</strong> / <small>Personal information</small></div>
+            </div>
+
+            <hr/>
+
+            <div class="am-g">
+
+                <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-bd">
+                            <div class="am-g">
+                                <div class="am-u-md-4">
+                                    <img id="userimg" class="am-img-circle am-img-thumbnail" src="{$user.img}" alt=""/>
+                                </div>
+                                <div class="am-u-md-8">
+                                    <p>你可以使用<a href="#">gravatar.com</a>提供的头像或者使用本地上传头像。(100*100) </p>
+                                    <form class="am-form"  method="post"  action="__ROOT__/Admin/User/information">
+                                        <div class="am-form-group">
+                                            <button type="button" id="image1"  class="am-btn am-btn-default am-btn-xs"> <i class="am-icon-cloud-upload"></i>上传</button>
+                                            <input type="hidden" id="url1" name="img" value="" />
+                                            <p class="am-form-help" id="ts">请选择要上传的文件...</p>
+                                            <button type="submit" class="am-btn am-btn-default am-btn-sm">保存</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+                    <form class="am-form am-form-horizontal"  id="my_form" method="post"  action="__ROOT__/Admin/User/information">
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">账号 / User</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="user" name="user" value="{$user.user}" placeholder="账号 / User">
+                                <small>你的登陆账号</small>
+                            </div>
+                        </div>
+                        
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">密码 / Password</label>
+                            <div class="am-u-sm-9">
+                                <input type="password" id="password" name="pass"  placeholder="密码 / Password">
+                                <small>你的账号密码</small>
+                            </div>
+                        </div>   
+                        
+                        <div class="am-form-group">
+                            <label for="user-name" class="am-u-sm-3 am-form-label">新密码 / New Password</label>
+                            <div class="am-u-sm-9">
+                                <input type="password" id="password" name="newpass"  placeholder="新密码 / New Password">
+                                <small>你新的账号密码</small>
+                            </div>
+                        </div>                          
+                      
+
+                        <div class="am-form-group">
+                            <label for="user-email" class="am-u-sm-3 am-form-label">电子邮件 / Email</label>
+                            <div class="am-u-sm-9">
+                                <input type="email" id="user-email" name="email" value="{$user.email}" placeholder="输入你的电子邮件 / Email">
+                                <small>邮箱你懂得...</small>
+                            </div>
+                        </div>
+
+
+                        <div class="am-form-group">
+                            <label for="user-QQ" class="am-u-sm-3 am-form-label">QQ</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="user-QQ" name="qq" value="{$user.qq}" placeholder="输入你的QQ号码">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="user-weibo" class="am-u-sm-3 am-form-label">微博 / weibo</label>
+                            <div class="am-u-sm-9">
+                                <input type="text" id="user-weibo" name="weibo" value="{$user.weibo}" placeholder="输入你的微博地址 / weibo">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
+                            <div class="am-u-sm-9">
+                                <textarea class="" rows="5" id="user-intro" name="brief" value="{$user.brief}" placeholder="输入个人简介">{$user.brief}</textarea>
+                                <small>250字以内写出你的一生...</small>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                <button type="submit" class="am-btn am-btn-default">保存修改</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    <script>
+        $(function () {
+            $('form').ajaxForm(function (data) {
+                eval('data=' + data);
+                eyAlert(data.msg);
+            });
+            return false;
+        })
+    </script>   
+    </div>
+
+    <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    <include file="./User/Admin/View/footer.html" />
+</body>
+</html>

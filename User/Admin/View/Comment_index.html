@@ -1,0 +1,78 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+    <body>
+    <include file="./User/Admin/View/menu.html" />
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <!-- content start -->
+        <div class="admin-content">
+
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">列表</strong> / <small>lists</small></div>
+            </div>
+
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+                            <thead>
+                                <tr>
+                                    <th class="table-check"><input type="checkbox" /></th>
+                                    <th class="table-id">ID</th>
+                                    <th class="table-title">内容</th>
+                                    <th class="table-author am-hide-sm-only">作者</th>
+                                    <th class="table-author am-hide-sm-only">地址</th>
+                                    <th class="table-author am-hide-sm-only">邮箱</th>
+                                    <th class="table-author am-hide-sm-only">IP</th>
+                                    <th class="table-date am-hide-sm-only">发表日期</th>
+                                    <th class="table-set">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>{$vo.id}</td>
+                                    <td><a href="#">{$vo.comment}</a></td>
+                                    <td class="am-hide-sm-only">{$vo.name}</td>
+                                    <td class="am-hide-sm-only">{$vo.address}</td>
+                                    <td class="am-hide-sm-only">{$vo.email}</td>
+                                    <td class="am-hide-sm-only">{$vo.ip}</td>
+                                    <td class="am-hide-sm-only">{$vo.time|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="doGet('/index.php/admin/Comment/del/id/{$vo.id}')"><span class="am-icon-trash-o"></span> 删除</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+                            共 {$count} 条记录
+
+                            <div class="am-fr">
+                                <ul class="am-pagination">
+                                    {$showPage}
+                                </ul>
+                            </div>
+                        </div>
+                        <hr />
+                        <p>注：批量功能请忽视</p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- content end -->
+
+    </div>
+    <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    <include file="./User/Admin/View/footer.html" />
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html class="no-js">
+    <include file="./User/Admin/View/header.html" />
+
+    <body>
+    <include file="./User/Admin/View/menu.html" />
+    <div class="am-cf admin-main">
+        <include file="./User/Admin/View/sidebar.html" />
+        <!-- content start -->
+        <div class="admin-content">
+
+            <div class="am-cf am-padding">
+                <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>信息</small></div>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-md-9">
+                    <div class="am-panel am-panel-default">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-1'}">主题编辑<span class="am-icon-chevron-down am-fr" ></span></div>
+                        <div class="am-panel-bd" id="collapse-panel-1">
+                            <form class="am-form">
+                                <div class="am-form-group">
+                                    <label for="doc-select-1">选择主题文件</label>
+                                    <select id="s">
+                                        <foreach name="files" item="one">
+                                            <option value="option1">{$one.file}</option>
+                                        </foreach>
+                                    </select>
+                                    <span class="am-form-caret"></span>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="doc-ta-1">内容</label>
+                                    <p id="al"></p>
+                                    <textarea class="" rows="5" id="doc-ta-1"  style="width:100%;height:350px;"></textarea>
+                                </div>   
+                                <p>
+                                    <button type="button" class="am-btn am-btn-default" onclick="save()">提交</button>
+                                    <button type="button" class="am-btn am-btn-default" onclick="cl()">清除模板缓存</button>
+                                </p>                  
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $('.btn-loading-example').click(function () {
+            var $btn = $(this)
+            $btn.button('loading');
+            setTimeout(function () {
+                $btn.button('reset');
+            }, 5000);
+        });
+    </script>
+    <script>
+        window.onload = myfun;
+        function myfun() {
+            $("#s").get(0).selectedIndex = 1;
+            $('#s').change(function () {
+                $("#al").text("正在加载...");
+                var f = $(this).children('option:selected').text();//selected的值
+                var url = window.location.href + "?path=" + f;
+                $.get(url, function (data, status) {
+                    $("#al").text(f + "文件内容(当前)");
+                    $("#doc-ta-1").val(data);
+                });
+            })
+        }
+        function save() {
+            var html = $('#doc-ta-1').val();
+            var path = $("#s").children('option:selected').text();//selected的值
+            var url = "__ROOT__/index.php/Admin/Index/setHtml"
+            $.post(url, {
+                html: html,
+                path: path
+            }, function (data, status) {
+                eval('data=' + data);
+                eyAlert(data.msg);
+            });
+        }
+        function cl() {
+            doGet('/index.php/Admin/Index/del');
+        }
+    </script>
+    <include file="./User/Admin/View/footer.html" />
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <include file="./User/Home/View/header.html" />
+    <body>
+        <!--页面容器-->
+        <div class="am-container  am-sans-serif" name="body"  id="body">
+            <!--头部开始-->
+            <include file="./User/Home/View/menu.html" />
+            <div id="pjax_content">
+                <ol class="am-breadcrumb">
+
+                    <li><a href="__ROOT__/" class="am-icon-home">首页</a></li>
+
+                    <li><a href="__ROOT__/photo">相册</a></li>
+
+                    <li class="am-active">图片列表</li>
+
+                </ol>      
+                <!--头部结束-->
+                <div class="am-g  am-g-fixed">
+                    <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
+                        am-avg-md-3 am-avg-lg-4 am-gallery-overlay">
+                        <volist name="list" id="vo">
+                            <li>
+                                <div class="am-gallery-item">
+                                    <a href="javascript:void(0)" onclick="popPicture({$vo.id})" class="">
+                                        <div class="gallerys">
+                                            <img id="{$vo.id}" src="{$vo.src}" alt="{$vo.name}" title="{$vo.title}" class="am-thumbnail  am-animation-scale-up" style="height: 220px;"/>
+                                        </div>
+                                        <h3 class="am-gallery-title">{$vo.title}</h3>
+                                        <div class="am-gallery-desc">{$vo.time|date="Y-m-d H:i:s",###}</div>
+                                    </a>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <include file="./User/Home/View/footer.html" />       
+    </body>
+</html>
