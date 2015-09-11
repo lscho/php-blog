@@ -158,8 +158,8 @@ function popPicture(id){
     theImage.src=src;
     var w=theImage.width;
     var h=theImage.height;
-    if(w>800){
-        w=800;
+    if(w>900){
+        w=900;
     }
     if(h>600){
         h=600;
